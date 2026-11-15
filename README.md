@@ -175,6 +175,7 @@ MINDMELD will automatically detect the configuration and connect to Supabase Aut
 4. Click **Deploy**. Vercel will build and launch MINDMELD with zero additional configuration.
 
 ---
+deployed link:https://mind-meld-evsn2dvpi-bhavithamarikeeris-projects.vercel.app/
 
 ## 📄 License
 MIT License. Crafted for collegiate builders, researchers, and hackathon competitors.
