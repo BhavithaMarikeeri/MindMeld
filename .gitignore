@@ -33,4 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Vite production build
+/dist/
 
+# All environment files
+.env.*
+!.env.example

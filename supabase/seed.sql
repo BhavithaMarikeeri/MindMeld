@@ -81,4 +81,3 @@ INSERT INTO public.missions (id, title, problem_statement, description, category
     350
 )
 ON CONFLICT (id) DO NOTHING;
-

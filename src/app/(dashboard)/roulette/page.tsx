@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useDemoStore } from "@/lib/demo/DemoContext";
 import { useToast } from "@/components/ui/toast";
 import { generateTeamFromCandidates, GeneratedTeamResult } from "@/lib/algorithms/roulette";
+import { soundEffects } from "@/lib/audio";
 import { ProjectDomain, Team } from "@/types";
 import {
   Dices,
@@ -50,8 +51,14 @@ export default function RoulettePage() {
 
   const handleSpinRoulette = () => {
     setIsSpinning(true);
+    soundEffects.playRouletteTick();
+
+    const tickInterval = setInterval(() => {
+      soundEffects.playRouletteTick();
+    }, 150);
 
     setTimeout(() => {
+      clearInterval(tickInterval);
       try {
         const result = generateTeamFromCandidates({
           candidates: allStudents,
@@ -60,6 +67,7 @@ export default function RoulettePage() {
           mode: formationMode
         });
         setGeneratedResult(result);
+        soundEffects.playAchievementChime();
         toast({
           title: "Squad Assembled!",
           description: `Formed "${result.name}" with ${result.avgCompatibilityScore}% team synergy.`,

@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog } from "@/components/ui/dialog";
+import { QRScannerModal } from "@/components/network/QRScannerModal";
 
 export default function ProfilePage() {
   const { currentUser, updateProfile } = useDemoStore();
@@ -34,6 +35,7 @@ export default function ProfilePage() {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   // Edit form state
@@ -162,12 +164,20 @@ export default function ProfilePage() {
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-3">
             <Button
+              variant="cyber"
+              size="sm"
+              onClick={() => setIsScannerOpen(true)}
+            >
+              <Camera className="h-4 w-4 mr-1.5" />
+              Scan Peer QR
+            </Button>
+            <Button
               variant="outline"
               size="sm"
               onClick={() => setIsQrModalOpen(true)}
             >
               <QrCode className="h-4 w-4 mr-1.5" />
-              QR Networking
+              My QR Pass
             </Button>
             <Button
               variant="primary"
@@ -399,11 +409,10 @@ export default function ProfilePage() {
                     type="button"
                     key={sk}
                     onClick={() => toggleEditSkill(sk)}
-                    className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
-                      isSelected
+                    className={`px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${isSelected
                         ? "bg-violet-600 text-white"
                         : "bg-slate-800 text-slate-400 hover:text-white"
-                    }`}
+                      }`}
                   >
                     {sk} {isSelected && "✓"}
                   </button>
@@ -458,6 +467,12 @@ export default function ProfilePage() {
           </div>
         </div>
       </Dialog>
+
+      {/* QR Scanner Camera Modal */}
+      <QRScannerModal
+        isOpen={isScannerOpen}
+        onClose={() => setIsScannerOpen(false)}
+      />
     </div>
   );
 }

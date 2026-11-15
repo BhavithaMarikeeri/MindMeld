@@ -6,6 +6,7 @@ import { useDemoStore } from "@/lib/demo/DemoContext";
 import { DemoStore } from "@/lib/demo/store";
 import { useToast } from "@/components/ui/toast";
 import { SYSTEM_ACHIEVEMENTS, checkEligibleAchievements } from "@/lib/algorithms/gamification";
+import { soundEffects } from "@/lib/audio";
 import { calculateLevel, formatXP } from "@/lib/utils";
 import {
   Trophy,
@@ -54,6 +55,7 @@ export default function LeaderboardPage() {
   }, [connections, missions, teams, currentUser, tasks, unlockedCodes]);
 
   const handleClaimAchievement = (code: string, title: string, xpValue: number) => {
+    soundEffects.playAchievementChime();
     try {
       confetti({
         particleCount: 80,
